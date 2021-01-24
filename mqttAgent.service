@@ -1,0 +1,15 @@
+[Unit]
+Description=mqttAgent
+
+[Service]
+Type=forking
+PIDFile=/var/run/mqttAgent.pid
+ExecStart=/usr/bin/mqttAgent \
+	--conf_file /etc/mqttAgent/mqttAgent.conf \
+	--log_file /var/log/mqttAgent.log \
+	--pid_file /var/run/mqttAgent.pid \
+	--daemon
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
